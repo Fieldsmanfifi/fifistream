@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Join Fifi's live window stream with your session ID.">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#101218">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Watch · Fifi Stream</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="vendor/peerjs.min.js"></script>
+  <script defer src="config.js"></script>
+  <script defer src="shared.js"></script>
+  <script defer src="viewer.js"></script>
+</head>
+<body>
+<main class="viewer">
+  <header class="topbar"><div class="brand"><span class="mark" aria-hidden="true">▶</span>Fifi Stream</div><span class="tag">Movie night</span></header>
+  <section id="join-card" class="card join-card" aria-labelledby="join-title">
+    <h1 id="join-title">Pull up a seat.</h1>
+    <p class="intro">Paste the session ID Fifi sent you to watch together.</p>
+    <form id="join-form">
+      <div class="field"><label for="session">Session ID</label><input id="session" class="session-input" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Paste your session ID" required maxlength="80"></div>
+      <button id="join" class="primary join-button" type="submit">Join stream</button>
+      <details id="relay-settings">
+        <summary>Connection help / TURN relay</summary>
+        <p class="connection-note">Usually you can leave this empty. If the stream cannot connect, both of you may need a TURN relay. Enter private relay credentials here; they are used for this visit only.</p>
+        <div class="field"><label for="relay-urls">TURN address(es)</label><input id="relay-urls" placeholder="turn:relay.example.com:3478" autocomplete="off"></div>
+        <div class="field"><label for="relay-user">TURN username</label><input id="relay-user" autocomplete="off"></div>
+        <div class="field"><label for="relay-pass">TURN password</label><input id="relay-pass" type="password" autocomplete="off"></div>
+        <div class="field"><label class="check"><input id="relay-only" type="checkbox">Use the relay only</label></div>
+      </details>
+    </form>
+    <div id="join-status" class="status" role="status" aria-live="polite"><span class="dot"></span><span id="join-message">No account, microphone, or camera needed.</span></div>
+    <p class="footnote">Use Safari on iPhone. Keep this page open while watching.</p>
+  </section>
+  <section id="player-card" class="card player-card" hidden aria-labelledby="player-title">
+    <div class="player-head"><h2 id="player-title">Fifi's stream</h2><span id="live-badge" class="tag">Connecting</span></div>
+    <div class="video-wrap">
+      <video id="video" playsinline webkit-playsinline muted controls></video>
+      <div id="play-overlay" class="play-overlay"><button id="play" class="primary" type="button" disabled>Waiting for the stream…</button><p id="play-help" class="small muted">The picture and sound will arrive here.</p></div>
+    </div>
+    <div class="player-controls"><div id="player-status" class="status" role="status" aria-live="polite"><span class="dot"></span><span id="player-message">Connecting…</span></div><button id="fullscreen" type="button">Full screen</button><button id="leave" type="button">Leave</button></div>
+  </section>
+  <footer>A fresh session for every stream.</footer>
+</main>
+</body>
+</html>
